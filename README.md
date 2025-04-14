@@ -8,7 +8,7 @@
 -view the expenses
 
 ##project structure
--Aoo.js
+-App.js
 -expenses Table.js
 -Form.js
 Table.js
