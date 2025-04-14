@@ -9,34 +9,47 @@ const Form = () => {
   });
 
   const [expenses, setExpenses] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setExpense((prevExpense) => ({ ...prevExpense, [name]: value }));
+    setExpense({
+      ...expense,
+      [name]: value
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { textDescription, category, amount, date } = expense;
-    if (textDescription && category && amount && date) {
-      setExpenses([...expenses, expense]);
-      setExpense({
-        textDescription: '',
-        category: '',
-        amount: '',
-        date: ''
-      });
-    }
+    setExpenses([...expenses, expense]);
+    setExpense({
+      textDescription: '',
+      category: '',
+      amount: '',
+      date: ''
+    });
   };
 
   const handleDelete = (index) => {
-    const updatedExpenses = expenses.filter((_, i) => i !== index);
-    setExpenses(updatedExpenses);
+    const newExpenses = [...expenses];
+    newExpenses.splice(index, 1);
+    setExpenses(newExpenses);
   };
+
+  const filteredExpenses = expenses.filter((exp) =>
+    exp.textDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    exp.category.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div className="form-container">
       <div className="header">
+        <input
+          type='search'
+          placeholder="Search.."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
       </div>
 
       <div className="form-box">
@@ -94,7 +107,7 @@ const Form = () => {
         </form>
       </div>
 
-      {expenses.length > 0 && (
+      {filteredExpenses.length > 0 && (
         <>
           <h2>Expenses</h2>
           <table border="1">
@@ -108,7 +121,7 @@ const Form = () => {
               </tr>
             </thead>
             <tbody>
-              {expenses.map((exp, index) => (
+              {filteredExpenses.map((exp, index) => (
                 <tr key={index}>
                   <td>{exp.textDescription}</td>
                   <td>{exp.category}</td>
