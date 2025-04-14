@@ -28,6 +28,8 @@ css for styling
 
 ##Author
 Ibrahim Abdullahi
+live link
+https://main.code-challenge-phase-2.pages.dev/
 
 
 
