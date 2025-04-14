@@ -38,6 +38,7 @@ const Form = () => {
     <div className="form-container">
       <div className="header">
       </div>
+      <input type='search' />
 
       <div className="form-box">
         <h2>Add New Expense</h2>
